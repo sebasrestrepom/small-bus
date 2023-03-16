@@ -11,8 +11,8 @@ export class RideController {
   async requestRide(@Body() request: RideDTO): Promise<Ride> {
     return await this.rideService.requestRide(
       request.email,
-      request.latitude,
-      request.longitude,
+      request.startLatitude,
+      request.startLongitude,
     );
   }
 }

@@ -20,8 +20,6 @@ export class RideService {
     email: string,
     startLatitude: number,
     startLongitude: number,
-    endLatitude: number,
-    endLongitude: number,
   ): Promise<Ride> {
     const rider = await this.getOrCreateRider(email);
     const driver = await this.getDriver(startLatitude, startLongitude);
@@ -32,19 +30,52 @@ export class RideService {
     ride.startDate = new Date();
     ride.startLatitude = startLatitude;
     ride.startLongitude = startLongitude;
-    ride.endLatitude = endLatitude;
-    ride.endLongitude = endLongitude;
 
     return this.rideRepository.save(ride);
   }
 
   private async getDriver(latitude: number, longitude: number) {
     const drivers = await this.driverRepository.find();
-    // hay que hacer la logica para obtener el diriver mas cercano con la longitud
-    const driver = drivers[0];
 
-    console.log(drivers);
-    return driver;
+    // Calculamos la distancia entre la ubicación actual y la ubicación de cada conductor
+    const driversWithDistance = drivers.map((driver) => {
+      const distance = this.haversine(
+        latitude,
+        longitude,
+        driver.latitude,
+        driver.longitude,
+      );
+      return { ...driver, distance };
+    });
+
+    // Ordenamos los conductores por distancia
+    driversWithDistance.sort((a, b) => a.distance - b.distance);
+
+    // Devolvemos el conductor más cercano
+    return driversWithDistance[0];
+  }
+
+  private haversine(
+    lat1: number,
+    lon1: number,
+    lat2: number,
+    lon2: number,
+  ): number {
+    const R = 6371000;
+    const lat1ToRadians = (lat1 * Math.PI) / 180;
+    const lat2ToRadians = (lat2 * Math.PI) / 180;
+    const differenceLatitude = ((lat2 - lat1) * Math.PI) / 180;
+    const differenceLongitude = ((lon2 - lon1) * Math.PI) / 180;
+
+    const a =
+      Math.sin(differenceLatitude / 2) * Math.sin(differenceLatitude / 2) +
+      Math.cos(lat1ToRadians) *
+        Math.cos(lat2ToRadians) *
+        Math.sin(differenceLongitude / 2) *
+        Math.sin(differenceLongitude / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+    return R * c;
   }
 
   private async getOrCreateRider(email: string): Promise<Rider> {
@@ -53,7 +84,6 @@ export class RideService {
         email,
       },
     });
-
 
     console.log('rider', rider);
     if (rider) {
