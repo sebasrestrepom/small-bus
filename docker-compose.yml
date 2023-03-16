@@ -1,0 +1,14 @@
+version: '3.7'
+
+services:
+
+  postgres_db:
+    image: postgres:11
+    ports:
+      - 7000:5432
+    environment:
+      POSTGRES_DB: "smallBus"
+      POSTGRES_USER: "smallBus"
+      POSTGRES_PASSWORD: "smallBus"
+    volumes:
+      - ./.dataPg:/var/lib/postgresql/data
