@@ -1,9 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { DeleteResult, Repository } from 'typeorm';
-import { Driver } from '../model/driver';
-import { Ride } from '../model/ride';
-import { Rider } from '../model/rider';
+import { Position } from 'src/entity/position';
+import { Repository } from 'typeorm';
+import { Driver } from '../entity/driver';
+import { Ride } from '../entity/ride';
+import { Rider } from '../entity/rider';
+import { PaymentService } from '../service/payment.service';
 
 @Injectable()
 export class RideService {
@@ -14,36 +16,34 @@ export class RideService {
     private driverRepository: Repository<Driver>,
     @InjectRepository(Rider)
     private riderRepository: Repository<Rider>,
+    private paymentService: PaymentService,
   ) {}
 
-  async requestRide(
-    email: string,
-    startLatitude: number,
-    startLongitude: number,
-  ): Promise<Ride> {
+  async requestRide(email: string, startPosition: Position): Promise<Ride> {
     const rider = await this.getOrCreateRider(email);
-    const driver = await this.getDriver(startLatitude, startLongitude);
+    const driver = await this.getDriver(startPosition);
+
+    console.log('aca estoy en la solicitud');
 
     const ride = new Ride();
     ride.driver = driver;
     ride.rider = rider;
     ride.startDate = new Date();
-    ride.startLatitude = startLatitude;
-    ride.startLongitude = startLongitude;
+    ride.startPosition = startPosition;
 
     return this.rideRepository.save(ride);
   }
 
-  private async getDriver(latitude: number, longitude: number) {
+  private async getDriver(position: Position) {
     const drivers = await this.driverRepository.find();
 
     // Calculamos la distancia entre la ubicación actual y la ubicación de cada conductor
     const driversWithDistance = drivers.map((driver) => {
       const distance = this.haversine(
-        latitude,
-        longitude,
-        driver.latitude,
-        driver.longitude,
+        position.latitude,
+        position.longitude,
+        driver.position.latitude,
+        driver.position.longitude,
       );
       return { ...driver, distance };
     });
@@ -96,13 +96,13 @@ export class RideService {
     return this.riderRepository.save(newRider);
   }
 
-  async finishRide(id: number): Promise<Ride> {
+  async finishRide(id: number, endPosition: Position): Promise<Ride> {
     const ride = await this.rideRepository.findOneById(id);
 
-    ride.finishRide();
+    ride.finishRide(endPosition);
 
-    //TODO llamar un servicio para conectarse con la api externa
+    this.paymentService.transaction(ride);
 
-    return this.riderRepository.save(ride);
+    return this.rideRepository.save(ride);
   }
 }

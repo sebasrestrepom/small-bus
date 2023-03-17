@@ -1,4 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Position } from './position';
 
 @Entity()
 export class Driver {
@@ -11,9 +12,6 @@ export class Driver {
   @Column()
   lastName: string;
 
-  @Column()
-  latitude: number;
-
-  @Column()
-  longitude: number;
+  @Column(() => Position)
+  position: Position;
 }

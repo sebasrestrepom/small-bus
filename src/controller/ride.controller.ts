@@ -1,18 +1,29 @@
 import { Controller, Post, Body } from '@nestjs/common';
 import { RideService } from 'src/service/ride.service';
-import { RideDTO } from './ride.dto';
-import { Ride } from 'src/model/ride';
+import { RequestRide } from './dto/requestRide.dto';
+import { FinishRide } from './dto/finishRide.dto';
+import { Ride } from 'src/entity/ride';
+import { Position } from 'src/entity/position';
 
 @Controller('/api/ride')
 export class RideController {
   constructor(private readonly rideService: RideService) {}
 
-  @Post()
-  async requestRide(@Body() request: RideDTO): Promise<Ride> {
+  @Post('/request-ride')
+  async requestRide(@Body() request: RequestRide): Promise<Ride> {
+    console.log('estos son los datos', request);
     return await this.rideService.requestRide(
       request.email,
-      request.startLatitude,
-      request.startLongitude,
+      new Position(request.latitude, request.longitude),
+    );
+  }
+
+  @Post('/finish-ride')
+  async finishRide(@Body() request: FinishRide): Promise<Ride> {
+    console.log('estos son los datos', request);
+    return await this.rideService.finishRide(
+      request.id,
+      new Position(request.latitude, request.longitude),
     );
   }
 }

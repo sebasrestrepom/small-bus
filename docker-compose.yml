@@ -11,4 +11,16 @@ services:
       POSTGRES_USER: "smallBus"
       POSTGRES_PASSWORD: "smallBus"
     volumes:
-      - ./.dataPg:/var/lib/postgresql/data
+      - c:/dockerVolues/smallPg:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    ports:
+      - 7001:80
+    depends_on:
+      - postgres_db
+    links:
+      - postgres_db:postgres_db
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
