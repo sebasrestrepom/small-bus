@@ -1,6 +1,6 @@
 <h1 align="center">Small Bus</h1>
 <p align="center">
-  <img src="https://media.istockphoto.com/vectors/bus-stop-bus-station-location-marker-icon-vector-id1136216828?b=1&k=6&m=1136216828&s=170667a&w=0&h=MJSZ6_tojqzp3jUyu275c-7D2cyu2kdNN21Nf5Qu5Q0=" width="300" alt="Small Bus Logo" />
+  <img src="https://i.ibb.co/6y1C4yw/Icon-mode-bus-default-svg.png" width="300" alt="Small Bus Logo" />
 </p>
 
   <h2 align="center">API developed for request rides</h2>
