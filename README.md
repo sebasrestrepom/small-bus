@@ -64,7 +64,7 @@ For more information about methods present on this API visit:
 ```bash
 
 # copy this url in your browser
-http://localhost:4000/docs/
+http://localhost:3000/docs/
 
 ```
 
