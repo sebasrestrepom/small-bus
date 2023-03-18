@@ -11,5 +11,5 @@
 
 
 
-docker run --name postgres -e POSTGRES_PASSWORD=smallBus -e POSTGRES_USER=smallBus -e POSTGRES_DB=smallBus -p 7000:5432 -d postgres
+docker run --name postgres -e POSTGRES_PASSWORD=smallBus -e POSTGRES_USER=smallBus -e POSTGRES_DB=smallBus -p 5432:5432 -d postgres:11
 

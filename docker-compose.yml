@@ -10,11 +10,11 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - DB_HOST=${DB_HOST}
-      - DB_PORT=${DB_PORT}
-      - DB_USERNAME=${DB_USERNAME}
-      - DB_PASSWORD=${DB_PASSWORD}
-      - DB_NAME=${DB_NAME}
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USERNAME=smallBus
+      - DB_PASSWORD=smallBus
+      - DB_NAME=smallBus
       - PAYMENT_BASE_URL=${PAYMENT_BASE_URL}
       - PAYMENT_PRIVATE_TOKEN=${PAYMENT_PRIVATE_TOKEN}
       - PAYMENT_PUBLIC_TOKEN=${PAYMENT_PUBLIC_TOKEN}
@@ -30,7 +30,7 @@ services:
       timeout: 5s
       retries: 5
     ports:
-      - 7000:5432
+      - 5432:5432
     environment:
       POSTGRES_DB: "smallBus"
       POSTGRES_USER: "smallBus"
