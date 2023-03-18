@@ -5,10 +5,9 @@ import { Repository } from 'typeorm';
 import { Driver } from '../entity/driver';
 import { Ride } from '../entity/ride';
 import { Rider } from '../entity/rider';
-import { PaymentService } from '../service/payment.service';
 
 @Injectable()
-export class RideService {
+export class RequestRideService {
   constructor(
     @InjectRepository(Ride)
     private rideRepository: Repository<Ride>,
@@ -16,14 +15,11 @@ export class RideService {
     private driverRepository: Repository<Driver>,
     @InjectRepository(Rider)
     private riderRepository: Repository<Rider>,
-    private paymentService: PaymentService,
   ) {}
 
-  async requestRide(email: string, startPosition: Position): Promise<Ride> {
+  async execute(email: string, startPosition: Position): Promise<Ride> {
     const rider = await this.getOrCreateRider(email);
     const driver = await this.getDriver(startPosition);
-
-    console.log('aca estoy en la solicitud');
 
     const ride = new Ride();
     ride.driver = driver;
@@ -37,7 +33,6 @@ export class RideService {
   private async getDriver(position: Position) {
     const drivers = await this.driverRepository.find();
 
-    // Calculamos la distancia entre la ubicación actual y la ubicación de cada conductor
     const driversWithDistance = drivers.map((driver) => {
       const distance = this.haversine(
         position.latitude,
@@ -48,10 +43,8 @@ export class RideService {
       return { ...driver, distance };
     });
 
-    // Ordenamos los conductores por distancia
     driversWithDistance.sort((a, b) => a.distance - b.distance);
 
-    // Devolvemos el conductor más cercano
     return driversWithDistance[0];
   }
 
@@ -85,7 +78,6 @@ export class RideService {
       },
     });
 
-    console.log('rider', rider);
     if (rider) {
       return rider;
     }
@@ -94,15 +86,5 @@ export class RideService {
     newRider.email = email;
 
     return this.riderRepository.save(newRider);
-  }
-
-  async finishRide(id: number, endPosition: Position): Promise<Ride> {
-    const ride = await this.rideRepository.findOneById(id);
-
-    ride.finishRide(endPosition);
-
-    this.paymentService.transaction(ride);
-
-    return this.rideRepository.save(ride);
   }
 }

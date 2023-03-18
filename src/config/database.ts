@@ -3,12 +3,12 @@ import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { Rider } from '../entity/rider';
 import { Driver } from '../entity/driver';
 import { Ride } from '../entity/ride';
-import { initial1679018605960 } from '../../migrations/1679018605960-initial';
-import { data1679018630281 } from '../../migrations/1679018630281-data';
-import { changeConstraints1679020119942 } from '../../migrations/1679020119942-changeConstraints';
-import { changeConstraint21679020672024 } from '../../migrations/1679020672024-changeConstraint2';
-import { changeIdConstraints1679021850593 } from '../../migrations/1679021850593-changeIdConstraints';
-import { changeValueType1679023812388 } from '../../migrations/1679023812388-changeValueType';
+import { Payment } from '../entity/payment';
+import { initial1679110693428 } from '../migrations/1679110693428-initial';
+import { data1679110759406 } from '../migrations/1679110759406-data';
+import { changeTypeField1679111306307 } from '../migrations/1679111306307-changeTypeField';
+import { changeTypeValue1679117237636 } from '../migrations/1679117237636-changeTypeValue';
+
 dotenv.config();
 
 export const database = {
@@ -18,14 +18,12 @@ export const database = {
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
-  entities: [Rider, Driver, Ride],
+  entities: [Rider, Driver, Ride, Payment],
   migrations: [
-    initial1679018605960,
-    data1679018630281,
-    changeConstraints1679020119942,
-    changeConstraint21679020672024,
-    changeIdConstraints1679021850593,
-    changeValueType1679023812388,
+    initial1679110693428,
+    data1679110759406,
+    changeTypeField1679111306307,
+    changeTypeValue1679117237636,
   ],
   namingStrategy: new SnakeNamingStrategy(),
 };

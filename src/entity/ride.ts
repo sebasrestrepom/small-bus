@@ -4,9 +4,11 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
   JoinColumn,
+  OneToOne,
 } from 'typeorm';
 import { Driver } from './driver';
 import { Rider } from './rider';
+import { Payment } from './payment';
 import { Position } from './position';
 
 @Entity()
@@ -22,6 +24,10 @@ export class Ride {
   @JoinColumn()
   rider: Rider;
 
+  @OneToOne(() => Payment, { eager: true })
+  @JoinColumn()
+  payment: Payment;
+
   @Column()
   startDate: Date;
 
@@ -36,9 +42,6 @@ export class Ride {
 
   @Column({ type: 'decimal', precision: 10, scale: 2, nullable: true })
   value: number;
-
-
- //TODO Columnas reference, paymentId
 
   finishRide(endPosition: Position) {
     this.endPosition = endPosition;
