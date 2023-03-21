@@ -27,9 +27,69 @@ Technological stack used:
 
 Among many others ...
 
+## Endpoints
+
+#### Request a ride.
+
+```bash
+
+Method: POST
+
+Path: localhost:3000/api/ride/request-ride
+
+Payload:
+
+ {
+	"email" : "sebasrestrepom@gmail.com",
+	"latitude" :25.7617,
+	"longitude":-80.1918
+}
+
+```
+#### Finish a ride.
+
+```bash
+
+Method: POST
+
+Path: localhost:3000/api/ride/finish-ride
+
+Payload:
+
+ { 
+	"id" : 2,
+	"latitude" :90.7617,
+	"longitude":-30.1918 
+}
+
+```
+#### Payment source.
+
+```bash
+
+Method: POST
+
+Path: localhost:3000/api/payment-source
+
+Payload:
+
+{
+	"email": "sebasrestrepom@gmail.com",
+	"cardToken": "tok_test_38849_9B4363557a30Fbd65c199Df385f7C67f"
+}
+
+```
+
+## Table structure
+
+Next we will see how the Ride, Driver, Rider and Payment tables are structured in the database.
+<p align="center">
+  <img src="https://i.ibb.co/hKdXks4/tablas-smallbus.png" width="600" alt="system model" />
+</p>
+
 ## Architecture diagram
 
-Next we will see a model of the system architecture
+The following is a model of the system architecture, which is based on a 3 layer architecture that makes the code maintainable and scalable.
 
 <p align="center">
   <img src="https://i.ibb.co/RBq0dyN/Diagrama-en-blanco.png" width="300" alt="system model" />
