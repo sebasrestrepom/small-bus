@@ -4,10 +4,8 @@ import { Rider } from '../entity/rider';
 import { Driver } from '../entity/driver';
 import { Ride } from '../entity/ride';
 import { Payment } from '../entity/payment';
-import { initial1679110693428 } from '../migrations/1679110693428-initial';
-import { data1679110759406 } from '../migrations/1679110759406-data';
-import { changeTypeField1679111306307 } from '../migrations/1679111306307-changeTypeField';
-import { changeTypeValue1679117237636 } from '../migrations/1679117237636-changeTypeValue';
+import { initial1679411740399 } from '../migrations/1679411740399-initial';
+import { data1679412942234 } from '../migrations/1679412942234-data';
 
 dotenv.config();
 
@@ -19,11 +17,6 @@ export const database = {
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
   entities: [Rider, Driver, Ride, Payment],
-  migrations: [
-    initial1679110693428,
-    data1679110759406,
-    changeTypeField1679111306307,
-    changeTypeValue1679117237636,
-  ],
+  migrations: [initial1679411740399, data1679412942234],
   namingStrategy: new SnakeNamingStrategy(),
 };

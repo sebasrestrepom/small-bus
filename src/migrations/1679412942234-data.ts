@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner } from "typeorm"
 
-export class data1679110759406 implements MigrationInterface {
+export class data1679412942234 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`INSERT INTO driver (first_name, last_name, position_latitude, position_longitude) VALUES
@@ -17,4 +17,3 @@ export class data1679110759406 implements MigrationInterface {
     }
 
 }
-

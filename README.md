@@ -43,8 +43,16 @@ For the installations you need to first clone the repository.
 #Clone repository
 $ git clone https://github.com/sebasrestrepom/small-bus.git
 
+```
+Additionally, you must create an .env file in the root of the project containing the following values:
+
+```bash
+PAYMENT_BASE_URL=_PAYMENT_BASE_URL_
+PAYMENT_PRIVATE_TOKEN=_PAYMENT_PRIVATE_TOKEN_
+PAYMENT_PUBLIC_TOKEN=_PAYMENT_PUBLIC_TOKEN_
 
 ```
+
 
 # Running the app
 
