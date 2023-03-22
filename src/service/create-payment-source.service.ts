@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Position } from 'src/entity/position';
 import { Repository } from 'typeorm';
 import { Rider } from '../entity/rider';
 import { PaymentProviderService } from '../provider/payment-provider.service';

@@ -23,7 +23,7 @@ export class PaymentSourceController {
       },
     },
   })
-  async requestRide(@Body() request: RequestPaymentSource): Promise<Rider> {
+  async paymentSource(@Body() request: RequestPaymentSource): Promise<Rider> {
     return await this.createPaymentSourceService.execute(
       request.email,
       request.cardToken,

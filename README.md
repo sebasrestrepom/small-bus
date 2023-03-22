@@ -29,6 +29,23 @@ Among many others ...
 
 ## Endpoints
 
+#### Payment source.
+
+```bash
+
+Method: POST
+
+Path: localhost:3000/api/payment-source
+
+Payload:
+
+{
+	"email": "sebasrestrepom@gmail.com",
+	"cardToken": "tok_test_38849_9B4363557a30Fbd65c199Df385f7C67f"
+}
+
+```
+
 #### Request a ride.
 
 ```bash
@@ -60,22 +77,6 @@ Payload:
 	"id" : 2,
 	"latitude" :90.7617,
 	"longitude":-30.1918 
-}
-
-```
-#### Payment source.
-
-```bash
-
-Method: POST
-
-Path: localhost:3000/api/payment-source
-
-Payload:
-
-{
-	"email": "sebasrestrepom@gmail.com",
-	"cardToken": "tok_test_38849_9B4363557a30Fbd65c199Df385f7C67f"
 }
 
 ```
