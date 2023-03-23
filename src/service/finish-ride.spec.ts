@@ -1,10 +1,10 @@
 import { Test } from '@nestjs/testing';
 import { Repository } from 'typeorm';
-import { Ride } from 'src/entity/ride';
+import { Ride } from '../entity/ride';
 import { Rider } from '../entity/rider';
 import { Driver } from '../entity/driver';
-import { Payment } from 'src/entity/payment';
-import { PaymentProviderService } from 'src/provider/payment-provider.service';
+import { Payment } from '../entity/payment';
+import { PaymentProviderService } from '../provider/payment-provider.service';
 import { FinishRideService } from './finish-ride.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
 
