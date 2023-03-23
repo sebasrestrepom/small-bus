@@ -93,7 +93,7 @@ Next we will see how the Ride, Driver, Rider and Payment tables are structured i
 The following is a model of the system architecture, which is based on a 3 layer architecture that makes the code maintainable and scalable.
 
 <p align="center">
-  <img src="https://i.ibb.co/RBq0dyN/Diagrama-en-blanco.png" width="300" alt="system model" />
+  <img src="https://i.ibb.co/tDQgk1Y/api-diagra.png" width="300" alt="system model" />
 </p>
 
 # Installation
